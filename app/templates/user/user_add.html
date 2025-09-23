@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'layouts/head.html' %}
+
+<head>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: #f4f6f9;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 40px;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #333;
+    }
+
+    p.subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 6px rgba(102,126,234,0.3);
+        outline: none;
+    }
+
+    select.form-control[multiple] {
+        height: 120px;
+    }
+
+    .form-check {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .form-check input {
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: none;
+        background: #667eea;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: #5a67d8;
+        box-shadow: 0 5px 15px rgba(102,126,234,0.3);
+    }
+
+    @media (max-width: 576px) {
+        .card {
+            padding: 30px 20px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Create New User</h2>
+    <p class="subtitle">Complete the form below to add a new user</p>
+
+    <form action="{{ url_for('user.user_add') }}" method="POST">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter username" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter full name" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter email" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="user_type">User Type</label>
+            <select id="user_type" name="user_type" class="form-control" required>
+                <option value="" disabled selected>Select user type</option>
+                <option value="Admin">Admin</option>
+                <option value="Normal">Normal</option>
+            </select>
+        </div>
+
+        <div class="form-check">
+            <input type="checkbox" id="user_status" name="user_status" checked>
+            <label for="user_status">Active</label>
+        </div>
+
+        <div class="form-group">
+            <label for="roles">Assign Roles</label>
+            <select id="roles" name="roles" class="form-control" multiple>
+                {% for role in roles %}
+                    <option value="{{ role.id }}">{{ role.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Create User</button>
+
+    </form>
+</div>
+
+</body>
+</html>

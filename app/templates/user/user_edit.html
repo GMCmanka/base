@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'layouts/head.html' %}
+<body class="bg-light text-dark">
+
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+
+    <!-- Header -->
+    {% include 'layouts/header.html' %}
+    <!-- /Header -->
+
+    <!-- Sidebar -->
+    {% include 'layouts/sidebar.html' %}
+    <!-- /Sidebar -->
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid d-flex justify-content-center align-items-center" style="min-height:100vh;">
+            <div class="col-lg-7 col-md-9">
+
+                <!-- Page Header -->
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Update User</h2>
+                    <p class="text-muted">Modify user information & manage roles</p>
+                </div>
+
+                <!-- Form Card -->
+                <div class="card shadow-lg border-0 rounded-4 glass-card">
+                    <div class="card-body p-5">
+
+                        <form action="{{ url_for('user.user_edit', user_id=data.id) }}" method="post">
+
+                            <!-- Username -->
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="username" name="username" value="{{ data.username }}" required>
+                                <label for="username">Username</label>
+                            </div>
+
+                            <!-- Full Name -->
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="fullname" name="fullname" value="{{ data.full_name }}" required>
+                                <label for="fullname">Full Name</label>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-floating mb-4">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ data.email }}" required>
+                                <label for="email">Email</label>
+                            </div>
+
+                            <!-- User Type -->
+                            <div class="form-floating mb-4">
+                                <select class="form-select" id="user_type" name="user_type">
+                                    <option value="Admin" {% if data.user_type == 'Admin' %}selected{% endif %}>Admin</option>
+                                    <option value="Normal" {% if data.user_type == 'Normal' %}selected{% endif %}>Normal</option>
+                                </select>
+                                <label for="user_type">User Type</label>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="form-check form-switch mb-4">
+                                <input class="form-check-input" type="checkbox" id="user_status" name="user_status" {% if data.is_active %}checked{% endif %}>
+                                <label class="form-check-label" for="user_status">Active</label>
+                            </div>
+
+                            <!-- Roles -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Assign Roles</label>
+                                <select name="roles" class="form-select select2" multiple>
+                                    {% for role in roles %}
+                                        <option value="{{ role.id }}" {% if role in data.roles %}selected{% endif %}>{{ role.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-gradient btn-lg rounded-pill">
+                                    <i class="bi bi-save me-2"></i> Save Changes
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- /Form Card -->
+
+            </div>
+        </div>
+        <!-- /Page Content -->
+
+    </div>
+    <!-- /Page Wrapper -->
+</div>
+<!-- /Main Wrapper -->
+
+
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='assets/js/jquery-3.5.1.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/popper.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.slimscroll.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/select2.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/moment.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/bootstrap-datetimepicker.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/app.js')}}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Choose roles...",
+            width: '100%'
+        });
+    });
+</script>
+
+<style>
+    /* Glass Effect */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Gradient Button */
+    .btn-gradient {
+        background: linear-gradient(135deg, #06b6d4, #3b82f6);
+        color: #fff;
+        border: none;
+        transition: 0.3s;
+    }
+    .btn-gradient:hover {
+        background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    /* Floating labels styling */
+    .form-floating>.form-control:focus,
+    .form-floating>.form-select:focus {
+        border-color: #06b6d4;
+        box-shadow: 0 0 0 0.2rem rgba(6,182,212,0.25);
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+        }
+        .form-control, .form-select {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #1e293b;
+            color: #fff;
+        }
+    }
+</style>
+
+</body>
+</html>
