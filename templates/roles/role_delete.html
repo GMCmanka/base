@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head -->
+{% include 'layouts/head.html' %}
+<!-- /Head -->
+<body>
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+
+    <!-- Header -->
+    {% include 'layouts/header.html' %}
+    <!-- /Header -->
+
+    <!-- Sidebar -->
+    {% include 'layouts/sidebar.html' %}
+    <!-- /Sidebar -->
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+
+                    <!-- Page Header -->
+                    <div class="page-header text-center">
+                        <h3 class="page-title text-danger">Confirm Role Deletion</h3>
+                        <p class="text-muted">Are you sure you want to delete this role? This action cannot be undone.</p>
+                    </div>
+                    <!-- /Page Header -->
+
+                    <form action="{{ url_for('role_delete', role_id=data.id) }}" method="post">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="{{ data.full_name }}" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" value="{{ data.username }}" class="form-control" readonly>
+                        </div>
+                            <div class="form-group">
+                                <label for="Description">Description / Message *</label>
+                                <textarea id="Description" name="Description" class="form-control" rows="4" required></textarea>
+                            </div>
+
+                        <div class="form-group">
+                            <label>Status</label><br>
+                            {% if data.is_active %}
+                                <span class="badge badge-success">Active</span>
+                            {% else %}
+                                <span class="badge badge-danger">Inactive</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="submit-section text-center">
+                            <button class="btn btn-danger submit-btn" type="submit">Delete Role</button>
+                            <a href="{{ url_for('roles') }}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- /Page Content -->
+
+    </div>
+    <!-- /Page Wrapper -->
+
+</div>
+<!-- /Main Wrapper -->
+
+<!-- JS Scripts -->
+<script src="{{ url_for('static', filename='assets/js/jquery-3.5.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/select2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/app.js') }}"></script>
+
+</body>
+</html>

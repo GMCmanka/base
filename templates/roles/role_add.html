@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head -->
+{% include 'layouts/head.html' %}
+<!-- /Head -->
+<body>
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+
+    <!-- Header -->
+    {% include 'layouts/header.html' %}
+    <!-- /Header -->
+
+    <!-- Sidebar -->
+    {% include 'layouts/sidebar.html' %}
+    <!-- /Sidebar -->
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="page-title">Create Role</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Page Header -->
+
+                    <!-- Flash messages -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form action="{{ url_for('role_add') }}" method="post">
+                        <div class="form-group">
+                            <label for="Fullname">Full Name *</label>
+                            <input type="text" id="Fullname" name="Fullname" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ID">Username / ID *</label>
+                            <input type="text" id="ID" name="ID" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description / Message *</label>
+                            <textarea id="Description" name="Description" class="form-control" rows="4" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role_type">Role Type *</label>
+                            <select class="select" id="role_type" name="role_type" required>
+                                <option value="">Select Role Type</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                                <option value="moderator">Moderator</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div class="form-check">
+                                <input type="checkbox" id="is_active" name="is_active" class="form-check-input">
+                                <label class="form-check-label" for="is_active">Active</label>
+                            </div>
+                        </div>
+                        
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn" type="submit">Create Role</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Content -->
+
+    </div>
+    <!-- /Page Wrapper -->
+
+</div>
+<!-- /Main Wrapper -->
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='assets/js/jquery-3.5.1.min.js')}}"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="{{ url_for('static', filename='assets/js/popper.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+
+<!-- Slimscroll JS -->
+<script src="{{ url_for('static', filename='assets/js/jquery.slimscroll.min.js')}}"></script>
+
+<!-- Select2 JS -->
+<script src="{{ url_for('static', filename='assets/js/select2.min.js')}}"></script>
+
+<!-- Datetimepicker JS -->
+<script src="{{ url_for('static', filename='assets/js/moment.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/bootstrap-datetimepicker.min.js')}}"></script>
+
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='assets/js/app.js')}}"></script>
+
+</body>
+</html>
