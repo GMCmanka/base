@@ -25,9 +25,10 @@ Flask, SQLAlchemy ORM, Jinja2, WTForms, Bootstrap modals, SweetAlert, DataTables
 3. Install dependencies:
    - `flask`
    - `flask_sqlalchemy`
+   - `flask-login`
    - `psycopg2-binary`
 4. Create a PostgreSQL database named `admin` and update the connection string if needed:
-   - `postgresql://postgres:aothecode@127.0.0.1/admin`
+   - `postgresql://postgres:aothecode@127.0.0.1:5433/admin`
 5. Apply `database.sql` to your database.
 6. Run one of the apps:
    - ORM version: `python app.py`
