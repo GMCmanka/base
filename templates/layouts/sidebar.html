@@ -5,11 +5,12 @@
                 <li class="menu-title">
                     <span>Main</span>
                 </li>
-                <li class="submenu">
-                    <a href="#"><i class="la la-dashboard"></i> <span> Settings</span> <span class="menu-arrow"></span></a>
-                    <ul style="display: none;">
+                <li class="submenu active">
+                    <a href="#"><i class="la la-dashboard"></i> <span> Menu</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: block;">
                         <li><a href="{{url_for('home')}}">Dashboard</a></li>
-                        <li><a href="{{url_for('user')}}">Users</a></li>
+                        <li><a href="{{url_for('users.user_list')}}">Users</a></li>
+                        <li><a href="{{url_for('roles.role_list')}}">Roles</a></li>
                     </ul>
                 </li>
             </ul>

@@ -27,55 +27,30 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h3 class="page-title">Update Role</h3>
+                                <h3 class="page-title">Edit Role</h3>
                             </div>
                         </div>
                     </div>
                     <!-- /Page Header -->
 
-                    <form action="{{ url_for('role_edit', role_id=data.id) }}" method="post">
-                        <div class="form-group">
-                            <label>Fullname</label>
-                            <input type="text" id="full_name" name="Fullname" value="{{ data.full_name }}"
-                                   class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" id="username" name="ID" value="{{ data.username }}"
-                                   class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Description">Description / Message *</label>
-                            <textarea id="Description" name="Description" class="form-control" rows="4" required></textarea>
-                        </div>
+                    <!-- Flash Messages -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
 
+                    <form action="{{ url_for('roles.role_edit', role_id=role.id) }}" method="post">
                         <div class="form-group">
-                            <label>Role Type *</label>
-                            <select class="select" id="role_type" name="role_type" required>
-                                <option value="">Select Role Type</option>
-                                <option value="admin" {% if data.role_type == 'admin' %}selected{% endif %}>Admin</option>
-                                <option value="user" {% if data.role_type == 'user' %}selected{% endif %}>User</option>
-                                <option value="moderator" {% if data.role_type == 'moderator' %}selected{% endif %}>Moderator</option>
-                            </select>
+                            <label>Role Name</label>
+                            <input type="text" id="name" name="name" value="{{role.name}}" class="form-control" required>
                         </div>
-                        <div class="form-group">
-                            <label>Status</label>
-                            <div class="status-toggle">
-                                {% if data.is_active %}
-                                <input type="checkbox" id="is_active" name="is_active" class="check" checked>
-                                {% else %}
-                                <input type="checkbox" id="is_active" name="is_active" class="check">
-                                {% endif %}
-                                <label for="is_active" class="checktoggle">checkbox</label>
-                            </div>
-                        </div>
-
-                        <div class="submit-section text-center">
+                        <div class="submit-section">
                             <button class="btn btn-primary submit-btn" type="submit">Update Role</button>
-                            <a href="{{ url_for('roles') }}" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -87,15 +62,15 @@
 </div>
 <!-- /Main Wrapper -->
 
-<!-- JS Scripts -->
-<script src="{{ url_for('static', filename='assets/js/jquery-3.5.1.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/popper.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/jquery.slimscroll.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/select2.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/moment.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-datetimepicker.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/app.js') }}"></script>
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='assets/js/jquery-3.5.1.min.js')}}"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="{{ url_for('static', filename='assets/js/popper.min.js')}}"></script>
+<script src="{{ url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='assets/js/app.js')}}"></script>
 
 </body>
 </html>

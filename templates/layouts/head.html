@@ -22,11 +22,197 @@
 		<!-- Select2 CSS -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/select2.min.css')}}">
 
+		<!-- DataTables CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/dataTables.bootstrap4.min.css')}}">
+
 		<!-- Datetimepicker CSS -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap-datetimepicker.min.css')}}">
 
+		<!-- DataTables CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/dataTables.bootstrap4.min.css')}}">
+
+		<!-- SweetAlert CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/plugins/sweetalert/sweetalert.css')}}">
+
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css')}}">
+
+		<!-- Subtle Animations CSS -->
+		<style>
+			/* Smooth transitions for all interactive elements */
+			* {
+				transition: all 0.2s ease-in-out;
+			}
+
+			/* Button hover effects - slight scale */
+			.btn {
+				transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+			.btn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+			}
+			.btn:active {
+				transform: translateY(0);
+			}
+
+			/* Primary button glow */
+			.btn-primary:hover {
+				box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
+			}
+			.btn-success:hover {
+				box-shadow: 0 4px 20px rgba(40, 167, 69, 0.4);
+			}
+			.btn-danger:hover {
+				box-shadow: 0 4px 20px rgba(220, 53, 69, 0.4);
+			}
+
+			/* Dropdown menu smooth appear */
+			.dropdown-menu {
+				opacity: 0;
+				transform: translateY(-10px);
+				transition: all 0.25s ease;
+				pointer-events: none;
+			}
+			.show > .dropdown-menu {
+				opacity: 1;
+				transform: translateY(0);
+				pointer-events: auto;
+			}
+
+			/* Dropdown item hover */
+			.dropdown-item {
+				transition: all 0.2s ease;
+			}
+			.dropdown-item:hover {
+				padding-left: 15px;
+				background-color: #f8f9fa;
+			}
+
+			/* Table row hover effect */
+			.table tbody tr {
+				transition: all 0.2s ease;
+			}
+			.table tbody tr:hover {
+				background-color: #e9ecef !important;
+				transform: scale(1.01);
+			}
+
+			/* Card hover lift */
+			.card {
+				transition: all 0.3s ease;
+			}
+			.card:hover {
+				box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+			}
+
+			/* Nav link hover underline */
+			.nav-link {
+				position: relative;
+			}
+			.nav-link::after {
+				content: '';
+				position: absolute;
+				width: 0;
+				height: 2px;
+				bottom: 0;
+				left: 50%;
+				background-color: #007bff;
+				transition: all 0.3s ease;
+			}
+			.nav-link:hover::after {
+				width: 100%;
+				left: 0;
+			}
+
+			/* Input focus glow */
+			.form-control:focus {
+				box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+				border-color: #80bdff;
+			}
+
+			/* Modal slide in */
+			.modal-content {
+				animation: modalSlideIn 0.3s ease;
+			}
+			@keyframes modalSlideIn {
+				from {
+					opacity: 0;
+					transform: translateY(-50px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			/* Sidebar menu item hover */
+			.sidebar-menu li a {
+				transition: all 0.2s ease;
+			}
+			.sidebar-menu li a:hover {
+				padding-left: 10px;
+				color: #007bff;
+			}
+
+			/* Badge pulse on hover */
+			.badge:hover {
+				animation: pulse 0.5s;
+			}
+			@keyframes pulse {
+				0% { transform: scale(1); }
+				50% { transform: scale(1.1); }
+				100% { transform: scale(1); }
+			}
+
+			/* SweetAlert popup animation */
+			.swal2-popup {
+				animation: swalSlideIn 0.4s ease;
+			}
+			@keyframes swalSlideIn {
+				from {
+					opacity: 0;
+					transform: scale(0.8) translateY(-20px);
+				}
+				to {
+					opacity: 1;
+					transform: scale(1) translateY(0);
+				}
+			}
+
+			/* Smooth page load */
+			.page-wrapper {
+				animation: fadeIn 0.4s ease;
+			}
+			@keyframes fadeIn {
+				from { opacity: 0; }
+				to { opacity: 1; }
+			}
+
+			/* Action icon hover */
+			.action-icon {
+				transition: all 0.2s ease;
+			}
+			.action-icon:hover {
+				color: #007bff;
+				transform: scale(1.2);
+			}
+
+			/* Select2 dropdown animation */
+			.select2-dropdown {
+				animation: select2Drop 0.2s ease;
+			}
+			@keyframes select2Drop {
+				from {
+					opacity: 0;
+					transform: translateY(-5px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+		</style>
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>

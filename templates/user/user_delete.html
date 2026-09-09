@@ -33,7 +33,7 @@
                     </div>
                     <!-- /Page Header -->
 
-                    <form action="{{ url_for('user_delete', user_id=data.id) }}" method="post">
+                    <form action="{{ url_for('users.user_delete', user_id=data.id) }}" method="post">
                         <div class="form-group">
                             <label>Username</label>
                             <input type="text" id="username" name="username" value="{{data.username}}"
