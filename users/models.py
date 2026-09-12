@@ -1,5 +1,6 @@
 from flask_login import UserMixin
 from extensions import db
+from datetime import datetime
 
 
 class User(UserMixin, db.Model):
@@ -13,6 +14,13 @@ class User(UserMixin, db.Model):
     is_active = db.Column(db.Boolean, default=True)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=True)
     password_hash = db.Column(db.String(255), nullable=False)
+    
+    # New fields
+    phone = db.Column(db.String(20), nullable=True)
+    avatar = db.Column(db.String(255), nullable=True, default='avatar-default.png')
+    dark_mode = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_login = db.Column(db.DateTime, nullable=True)
     
     # Relationship
     role = db.relationship('Role', backref=db.backref('users', lazy=True))
@@ -31,4 +39,21 @@ class User(UserMixin, db.Model):
     
     def delete(self):
         db.session.delete(self)
+        db.session.commit()
+
+
+class ActivityLog(db.Model):
+    __tablename__ = 'activity_log'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    action = db.Column(db.String(100), nullable=False)
+    details = db.Column(db.Text, nullable=True)
+    ip_address = db.Column(db.String(50), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    user = db.relationship('User', backref=db.backref('activities', lazy=True))
+    
+    def save(self):
+        db.session.add(self)
         db.session.commit()

@@ -13,6 +13,17 @@
                         <li><a href="{{url_for('roles.role_list')}}">Roles</a></li>
                     </ul>
                 </li>
+                <li class="menu-title">
+                    <span>Tools</span>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="la la-cog"></i> <span> System</span> <span class="menu-arrow"></span></a>
+                    <ul>
+                        <li><a href="{{url_for('users.activity_log')}}">Activity Log</a></li>
+                        <li><a href="{{url_for('users.export_csv')}}">Export CSV</a></li>
+                        <li><a href="{{url_for('users.settings')}}">Settings</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

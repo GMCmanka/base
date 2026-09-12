@@ -32,13 +32,16 @@
         .login-header .logo {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #f97316, #ea580c);
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
-            font-size: 35px;
+        }
+        .login-header .logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
         }
         .login-header h2 {
             color: white;
@@ -120,7 +123,7 @@
     <div class="login-card">
         <div class="login-header">
             <div class="logo">
-                <i class="fas fa-seedling text-white"></i>
+                <img src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo">
             </div>
             <h2>Agriculture System</h2>
             <p>Sign in to your account</p>
