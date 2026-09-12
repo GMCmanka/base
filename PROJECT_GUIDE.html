@@ -274,72 +274,40 @@ http://127.0.0.1:5001/login
     </div>
 </div>
 
-<!-- SECTION 4: WHAT'S NEXT (OPTIONAL ENHANCEMENTS) -->
+<!-- SECTION 4: HOW TO INSTALL ON NEW COMPUTER -->
 <div class="section">
-    <h2 class="section-title"><i class="fas fa-rocket me-2"></i>3. What's Next? (Optional Enhancements)</h2>
+    <h2 class="section-title"><i class="fas fa-download me-2"></i>4. How to Install on New Computer</h2>
     
     <div class="alert alert-info">
         <i class="fas fa-info-circle me-2"></i>
-        <strong>All internship requirements are complete!</strong> These are optional features to make the system even better.
+        <strong>Prerequisites:</strong> Python 3.8+, PostgreSQL, Git
     </div>
     
-    <div class="row">
-        <div class="col-md-6">
-            <div class="task-card current">
-                <span class="badge bg-warning badge-task me-2">OPTIONAL</span>
-                <strong>Phase 4: Dashboard with Real Stats</strong>
-                <p class="mb-2">Replace fake data with real database counts</p>
-                <ul class="mb-0">
-                    <li>Real user count</li>
-                    <li>Real role count</li>
-                    <li>Active/inactive users</li>
-                    <li>Chart.js visualizations</li>
-                </ul>
-            </div>
-            
-            <div class="task-card pending">
-                <span class="badge bg-secondary badge-task me-2">OPTIONAL</span>
-                <strong>Phase 5: Dark Mode Toggle</strong>
-                <p class="mb-2">Add dark/light theme switcher</p>
-                <ul class="mb-0">
-                    <li>Toggle button in header</li>
-                    <li>Save preference in localStorage</li>
-                    <li>Dark theme CSS</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="col-md-6">
-            <div class="task-card pending">
-                <span class="badge bg-secondary badge-task me-2">OPTIONAL</span>
-                <strong>Phase 6: Activity Log</strong>
-                <p class="mb-2">Track who did what, when</p>
-                <ul class="mb-0">
-                    <li>Activity log table</li>
-                    <li>Log create/update/delete actions</li>
-                    <li>Show recent activity on dashboard</li>
-                </ul>
-            </div>
-            
-            <div class="task-card done">
-                <span class="badge bg-success badge-task me-2">DONE</span>
-                <strong>Phase 7: Login System</strong>
-                <p class="mb-2">Secure authentication</p>
-                <ul class="mb-0">
-                    <li class="done">Login/logout functionality</li>
-                    <li class="done">Password hashing (werkzeug)</li>
-                    <li class="done">Protected routes (@login_required)</li>
-                    <li class="done">Admin user created (admin/admin123)</li>
-                    <li class="done">Profile dropdown with logout</li>
-                </ul>
-            </div>
-        </div>
+    <div class="code-block mb-4">
+# Step 1: Clone the repository<br>
+git clone https://github.com/taskplete/base.git<br>
+cd base<br><br>
+# Step 2: Create virtual environment<br>
+python -m venv venv<br><br>
+# Step 3: Activate virtual environment<br>
+venv\Scripts\activate<br><br>
+# Step 4: Install dependencies<br>
+pip install flask flask_sqlalchemy flask-login psycopg2-binary Flask-WTF<br><br>
+# Step 5: Create database in PostgreSQL<br>
+CREATE DATABASE admin;<br><br>
+# Step 6: Apply database schema<br>
+# Copy/paste database.sql into pgAdmin<br><br>
+# Step 7: Run the application<br>
+python app.py<br><br>
+# Step 8: Open browser<br>
+http://127.0.0.1:5000/login<br><br>
+# Login: admin / admin123
     </div>
 </div>
 
 <!-- SECTION 5: SUMMARY -->
 <div class="section">
-    <h2 class="section-title"><i class="fas fa-chart-bar me-2"></i>4. Final Summary</h2>
+    <h2 class="section-title"><i class="fas fa-chart-bar me-2"></i>5. Final Summary</h2>
     
     <div class="row text-center">
         <div class="col-md-3">
@@ -376,7 +344,7 @@ http://127.0.0.1:5001/login
 
 <div class="text-center py-4">
     <p class="text-white">Flask User Management System - Project Guide</p>
-    <p class="text-white-50">Last Updated: September 6, 2026 | ALL REQUIREMENTS COMPLETE</p>
+    <p class="text-white-50">GitHub: https://github.com/taskplete/base | ALL REQUIREMENTS COMPLETE</p>
 </div>
 
 </div>
