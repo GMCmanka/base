@@ -18,15 +18,15 @@
                     </ul>
                 </li>
                 <li class="menu-title">
-                    <span>Tools</span>
+                    <span>System</span>
                 </li>
-                <li class="submenu">
+                <li class="submenu active">
                     <a href="#" onclick="toggleSubmenu(this); return false;">
                         <i class="la la-cog"></i> 
-                        <span>System</span> 
+                        <span>Settings</span> 
                         <span class="menu-arrow"></span>
                     </a>
-                    <ul class="submenu-list">
+                    <ul class="submenu-list" style="display: block;">
                         <li><a href="{{url_for('users.profile')}}"><i class="la la-user"></i> My Profile</a></li>
                         <li><a href="{{url_for('users.settings')}}"><i class="la la-gear"></i> Settings</a></li>
                         <li><a href="{{url_for('users.activity_log')}}"><i class="la la-history"></i> Activity Log</a></li>
@@ -43,16 +43,6 @@ function toggleSubmenu(el) {
     var parent = el.parentElement;
     var submenu = parent.querySelector('.submenu-list');
     
-    // Close other submenus
-    document.querySelectorAll('.submenu').forEach(function(item) {
-        if (item !== parent) {
-            item.classList.remove('active');
-            var sub = item.querySelector('.submenu-list');
-            if (sub) sub.style.maxHeight = '0';
-        }
-    });
-    
-    // Toggle current
     parent.classList.toggle('active');
     if (parent.classList.contains('active')) {
         submenu.style.maxHeight = submenu.scrollHeight + 'px';
@@ -60,4 +50,11 @@ function toggleSubmenu(el) {
         submenu.style.maxHeight = '0';
     }
 }
+
+// Keep both menus open on page load
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.submenu.active .submenu-list').forEach(function(sub) {
+        sub.style.maxHeight = sub.scrollHeight + 'px';
+    });
+});
 </script>

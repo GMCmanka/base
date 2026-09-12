@@ -20,21 +20,34 @@
                 </div>
             </div>
 
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
             <div class="row">
                 <!-- Appearance Settings -->
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5><i class="fa fa-palette me-2"></i>Appearance</h5>
+                            <h5><i class="fa fa-palette me-2"></i>Appearance Settings</h5>
                         </div>
                         <div class="card-body">
                             <form action="{{ url_for('users.update_settings') }}" method="POST">
                                 <div class="form-group">
-                                    <div class="custom-control custom-switch">
+                                    <label>Theme Mode</label>
+                                    <div class="custom-control custom-switch mt-2">
                                         <input type="checkbox" class="custom-control-input" id="darkMode" name="dark_mode" {{ 'checked' if user.dark_mode }}>
-                                        <label class="custom-control-label" for="darkMode">Dark Mode</label>
+                                        <label class="custom-control-label" for="darkMode">Enable Dark Mode</label>
                                     </div>
-                                    <small class="text-muted">Toggle dark/light theme</small>
+                                    <small class="text-muted">Switch between light and dark theme</small>
                                 </div>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-save me-2"></i>Save Appearance</button>
                             </form>
@@ -73,20 +86,45 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5><i class="fa fa-info-circle me-2"></i>Account Info</h5>
+                            <h5><i class="fa fa-info-circle me-2"></i>Account Information</h5>
                         </div>
                         <div class="card-body">
-                            <p><strong>Username:</strong> {{ user.username }}</p>
-                            <p><strong>Email:</strong> {{ user.email }}</p>
-                            <p><strong>Role:</strong> {{ user.role.name if user.role else 'N/A' }}</p>
-                            <p><strong>Member Since:</strong> {{ user.created_at.strftime('%B %d, %Y') if user.created_at else 'N/A' }}</p>
-                            <p><strong>Status:</strong> 
-                                {% if user.is_active %}
-                                    <span class="badge bg-success">Active</span>
-                                {% else %}
-                                    <span class="badge bg-danger">Inactive</span>
-                                {% endif %}
-                            </p>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>Username:</strong></td>
+                                    <td>{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Email:</strong></td>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Full Name:</strong></td>
+                                    <td>{{ user.full_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Role:</strong></td>
+                                    <td><span class="badge badge-primary">{{ user.role.name if user.role else 'N/A' }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phone:</strong></td>
+                                    <td>{{ user.phone or 'Not set' }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Member Since:</strong></td>
+                                    <td>{{ user.created_at.strftime('%B %d, %Y') if user.created_at else 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Status:</strong></td>
+                                    <td>
+                                        {% if user.is_active %}
+                                            <span class="badge badge-success">Active</span>
+                                        {% else %}
+                                            <span class="badge badge-danger">Inactive</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -98,14 +136,17 @@
                             <h5><i class="fa fa-bolt me-2"></i>Quick Actions</h5>
                         </div>
                         <div class="card-body">
-                            <a href="{{ url_for('users.profile') }}" class="btn btn-outline-primary btn-block mb-2">
-                                <i class="fa fa-user me-2"></i>Edit Profile
+                            <a href="{{ url_for('users.profile') }}" class="btn btn-outline-primary btn-block mb-3">
+                                <i class="fa fa-user me-2"></i>Edit My Profile
                             </a>
-                            <a href="{{ url_for('users.activity_log') }}" class="btn btn-outline-info btn-block mb-2">
+                            <a href="{{ url_for('users.activity_log') }}" class="btn btn-outline-info btn-block mb-3">
                                 <i class="fa fa-history me-2"></i>View Activity Log
                             </a>
-                            <a href="{{ url_for('users.export_csv') }}" class="btn btn-outline-success btn-block mb-2">
-                                <i class="fa fa-download me-2"></i>Export Users CSV
+                            <a href="{{ url_for('users.export_csv') }}" class="btn btn-outline-success btn-block mb-3">
+                                <i class="fa fa-download me-2"></i>Export Users to CSV
+                            </a>
+                            <a href="{{ url_for('users.user_list') }}" class="btn btn-outline-secondary btn-block">
+                                <i class="fa fa-users me-2"></i>Manage Users
                             </a>
                         </div>
                     </div>
@@ -119,18 +160,6 @@
 <script src="{{ url_for('static', filename='assets/js/popper.min.js')}}"></script>
 <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
 <script src="{{ url_for('static', filename='assets/plugins/sweetalert/sweetalert.min.js')}}"></script>
-<script>
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            {% if category == 'success' %}
-                swal("Success!", "{{ message }}", "success");
-            {% else %}
-                swal("Error!", "{{ message }}", "error");
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
 </script>
 </body>
 </html>
