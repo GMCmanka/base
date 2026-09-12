@@ -44,15 +44,10 @@
 				transition: all 0.2s ease-in-out;
 			}
 
-			/* Sidebar submenu animations */
+			/* Sidebar submenu */
 			.sidebar .submenu-list {
-				max-height: 0;
-				overflow: hidden;
-				transition: max-height 0.3s ease;
-				padding-left: 0;
-			}
-			.sidebar .submenu.active > .submenu-list {
-				max-height: 500px;
+				display: block;
+				padding-left: 15px;
 			}
 			.sidebar .submenu-list li a {
 				transition: all 0.2s ease;
@@ -66,7 +61,7 @@
 				transition: transform 0.3s ease;
 				float: right;
 			}
-			.sidebar .submenu.active > a .menu-arrow {
+			.sidebar .submenu.open > a .menu-arrow {
 				transform: rotate(90deg);
 			}
 
@@ -238,7 +233,68 @@
 					transform: translateY(0);
 				}
 			}
+			/* Sidebar hidden state */
+			.sidebar-hidden {
+				display: none !important;
+			}
+
+			/* Dark Mode */
+			body.dark-mode {
+				background-color: #1a1a2e;
+				color: #e0e0e0;
+			}
+			body.dark-mode .main-wrapper {
+				background-color: #1a1a2e;
+			}
+			body.dark-mode .page-wrapper {
+				background-color: #16213e;
+			}
+			body.dark-mode .sidebar {
+				background-color: #0f3460;
+			}
+			body.dark-mode .sidebar .submenu-list li a {
+				color: #b0b0b0;
+			}
+			body.dark-mode .sidebar .submenu-list li a:hover {
+				color: #fff;
+				background: rgba(255,255,255,0.1);
+			}
+			body.dark-mode .header {
+				background-color: #0f3460;
+			}
+			body.dark-mode .card {
+				background-color: #16213e;
+				color: #e0e0e0;
+			}
+			body.dark-mode .card-header {
+				background-color: #1a1a2e;
+				color: #e0e0e0;
+			}
+			body.dark-mode .table {
+				color: #e0e0e0;
+			}
+			body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+				background-color: rgba(255,255,255,0.05);
+			}
+			body.dark-mode .form-control {
+				background-color: #1a1a2e;
+				color: #e0e0e0;
+				border-color: #0f3460;
+			}
+			body.dark-mode .page-title {
+				color: #e0e0e0;
+			}
+			body.dark-mode .breadcrumb-item a {
+				color: #4fc3f7;
+			}
 		</style>
+
+		<script>
+		function toggleSidebar() {
+			var sidebar = document.getElementById('sidebar');
+			sidebar.classList.toggle('sidebar-hidden');
+		}
+		</script>
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>

@@ -5,7 +5,7 @@
                 <li class="menu-title">
                     <span>Main</span>
                 </li>
-                <li class="submenu active">
+                <li class="submenu open">
                     <a href="#" onclick="toggleSubmenu(this); return false;">
                         <i class="la la-dashboard"></i> 
                         <span>Dashboard</span> 
@@ -20,7 +20,7 @@
                 <li class="menu-title">
                     <span>System</span>
                 </li>
-                <li class="submenu active">
+                <li class="submenu open">
                     <a href="#" onclick="toggleSubmenu(this); return false;">
                         <i class="la la-cog"></i> 
                         <span>Settings</span> 
@@ -43,18 +43,17 @@ function toggleSubmenu(el) {
     var parent = el.parentElement;
     var submenu = parent.querySelector('.submenu-list');
     
-    parent.classList.toggle('active');
-    if (parent.classList.contains('active')) {
-        submenu.style.maxHeight = submenu.scrollHeight + 'px';
+    if (submenu.style.display === 'none' || submenu.style.display === '') {
+        submenu.style.display = 'block';
+        parent.classList.add('open');
     } else {
-        submenu.style.maxHeight = '0';
+        submenu.style.display = 'none';
+        parent.classList.remove('open');
     }
 }
 
-// Keep both menus open on page load
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.submenu.active .submenu-list').forEach(function(sub) {
-        sub.style.maxHeight = sub.scrollHeight + 'px';
-    });
-});
+// Apply dark mode if enabled
+{% if current_user.is_authenticated and current_user.dark_mode %}
+document.body.classList.add('dark-mode');
+{% endif %}
 </script>
