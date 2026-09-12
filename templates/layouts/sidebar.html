@@ -6,25 +6,58 @@
                     <span>Main</span>
                 </li>
                 <li class="submenu active">
-                    <a href="#"><i class="la la-dashboard"></i> <span> Menu</span> <span class="menu-arrow"></span></a>
-                    <ul style="display: block;">
-                        <li><a href="{{url_for('home')}}">Dashboard</a></li>
-                        <li><a href="{{url_for('users.user_list')}}">Users</a></li>
-                        <li><a href="{{url_for('roles.role_list')}}">Roles</a></li>
+                    <a href="#" onclick="toggleSubmenu(this); return false;">
+                        <i class="la la-dashboard"></i> 
+                        <span>Dashboard</span> 
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="submenu-list" style="display: block;">
+                        <li><a href="{{url_for('home')}}"><i class="la la-home"></i> Dashboard</a></li>
+                        <li><a href="{{url_for('users.user_list')}}"><i class="la la-users"></i> Users</a></li>
+                        <li><a href="{{url_for('roles.role_list')}}"><i class="la la-shield"></i> Roles</a></li>
                     </ul>
                 </li>
                 <li class="menu-title">
                     <span>Tools</span>
                 </li>
                 <li class="submenu">
-                    <a href="#"><i class="la la-cog"></i> <span> System</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="{{url_for('users.activity_log')}}">Activity Log</a></li>
-                        <li><a href="{{url_for('users.export_csv')}}">Export CSV</a></li>
-                        <li><a href="{{url_for('users.settings')}}">Settings</a></li>
+                    <a href="#" onclick="toggleSubmenu(this); return false;">
+                        <i class="la la-cog"></i> 
+                        <span>System</span> 
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="submenu-list">
+                        <li><a href="{{url_for('users.profile')}}"><i class="la la-user"></i> My Profile</a></li>
+                        <li><a href="{{url_for('users.settings')}}"><i class="la la-gear"></i> Settings</a></li>
+                        <li><a href="{{url_for('users.activity_log')}}"><i class="la la-history"></i> Activity Log</a></li>
+                        <li><a href="{{url_for('users.export_csv')}}"><i class="la la-download"></i> Export CSV</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+
+<script>
+function toggleSubmenu(el) {
+    var parent = el.parentElement;
+    var submenu = parent.querySelector('.submenu-list');
+    
+    // Close other submenus
+    document.querySelectorAll('.submenu').forEach(function(item) {
+        if (item !== parent) {
+            item.classList.remove('active');
+            var sub = item.querySelector('.submenu-list');
+            if (sub) sub.style.maxHeight = '0';
+        }
+    });
+    
+    // Toggle current
+    parent.classList.toggle('active');
+    if (parent.classList.contains('active')) {
+        submenu.style.maxHeight = submenu.scrollHeight + 'px';
+    } else {
+        submenu.style.maxHeight = '0';
+    }
+}
+</script>

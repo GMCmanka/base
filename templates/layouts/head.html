@@ -44,6 +44,32 @@
 				transition: all 0.2s ease-in-out;
 			}
 
+			/* Sidebar submenu animations */
+			.sidebar .submenu-list {
+				max-height: 0;
+				overflow: hidden;
+				transition: max-height 0.3s ease;
+				padding-left: 0;
+			}
+			.sidebar .submenu.active > .submenu-list {
+				max-height: 500px;
+			}
+			.sidebar .submenu-list li a {
+				transition: all 0.2s ease;
+				padding-left: 15px;
+			}
+			.sidebar .submenu-list li a:hover {
+				padding-left: 25px;
+				background: rgba(255,255,255,0.05);
+			}
+			.sidebar .menu-arrow {
+				transition: transform 0.3s ease;
+				float: right;
+			}
+			.sidebar .submenu.active > a .menu-arrow {
+				transform: rotate(90deg);
+			}
+
 			/* Button hover effects - slight scale */
 			.btn {
 				transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
