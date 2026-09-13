@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from extensions import db
@@ -7,13 +8,37 @@ def create_app():
     """Application factory pattern"""
     app = Flask(__name__)
     
-    # Configuration
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:aothecode@127.0.0.1:5433/admin'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-    app.config['SECRET_KEY'] = 'your-secret-key-here'
+    # Configuration - use Render DATABASE_URL if available, else local
+    database_url = os.environ.get('DATABASE_URL', 'postgresql://postgres:aothecode@127.0.0.1:5433/admin')
+    if database_url.startswith('postgres://'):
+        database_url = database_url.replace('postgres://', 'postgresql://', 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
     
     # Initialize SQLAlchemy with app
     db.init_app(app)
+    
+    # Create tables and admin user on first run
+    with app.app_context():
+        from users.models import User
+        from roles.models import Role
+        db.create_all()
+        if not Role.query.filter_by(name='Admin').first():
+            admin_role = Role(name='Admin', description='System Administrator')
+            db.session.add(admin_role)
+            db.session.commit()
+        if not User.query.filter_by(username='admin').first():
+            admin = User(
+                username='admin',
+                full_name='System Admin',
+                email='admin@system.com',
+                role_id=admin_role.id,
+                is_active=True
+            )
+            admin.set_password('admin123')
+            db.session.add(admin)
+            db.session.commit()
     
     # Initialize Flask-Login
     login_manager = LoginManager()
@@ -137,4 +162,5 @@ def create_app():
 # Run the app
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
