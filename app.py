@@ -25,7 +25,7 @@ def create_app():
         from roles.models import Role
         db.create_all()
         if not Role.query.filter_by(name='Admin').first():
-            admin_role = Role(name='Admin', description='System Administrator')
+            admin_role = Role(name='Admin')
             db.session.add(admin_role)
             db.session.commit()
         if not User.query.filter_by(username='admin').first():
